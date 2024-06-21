@@ -25,9 +25,14 @@ jobs:
         
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+
+      - name: Docker build
+        uses: docker/build-push-action@v6
+        with:
+          build-args: |
+                DB_USER=${{ secrets.DB_USER }}
+                DB_PASS=${{ secrets.DB_PASS }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: andreskasekamp/api-gateway:latest
         
-      - name: Build and Push to Dockerhub
-        id: build-docker-image
-        run: |
-          docker build . -f Dockerfile --build-arg DB_USER=${{ secrets.DB_USER }} --build-arg DB_PASS=${{ secrets.DB_PASS }} -t andreskasekamp/billing-database:latest
-          docker push andreskasekamp/billing-database:latest
+
