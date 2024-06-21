@@ -29,5 +29,5 @@ jobs:
       - name: Build and Push to Dockerhub
         id: build-docker-image
         run: |
-          docker build --build-arg DB_USER=${{ secrets.DB_USER }} --build-arg DB_PASS=${{ secrets.DB_PASS }} -t andreskasekamp/billing-database:latest .
+          docker build -f Dockerfile --build-arg DB_USER=${{ secrets.DB_USER }} --build-arg DB_PASS=${{ secrets.DB_PASS }} -t andreskasekamp/billing-database:latest .
           docker push andreskasekamp/billing-database:latest
