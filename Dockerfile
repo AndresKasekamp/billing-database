@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /app
 
 # Update package list and install prerequisites
-RUN apt update && apt install -y \
+RUN apt-get update && apt-get install -y \
     wget \
     gnupg \
     lsb-release \
@@ -19,7 +19,7 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg -
 
 RUN echo "deb [signed-by=/usr/share/keyrings/postgresql-archive-keyring.gpg] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
-RUN apt update && apt install -y \
+RUN apt-get update && apt-get install -y \
     postgresql-16 \
     postgresql-client-16 \
     && rm -rf /var/lib/apt/lists/*
