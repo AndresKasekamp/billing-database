@@ -33,6 +33,6 @@ jobs:
                 DB_USER=${{ secrets.DB_USER }}
                 DB_PASS=${{ secrets.DB_PASS }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: andreskasekamp/billing-database:latest, andreskasekamp/billing-database:0.0.1
+          tags: andreskasekamp/billing-database:latest, andreskasekamp/billing-database:0.0.2
         
 
