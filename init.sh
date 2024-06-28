@@ -11,16 +11,16 @@ if [[ -z "$POSTGRES_USER" || -z "$POSTGRES_DB" || -z "$DB_USER" || -z "$DB_PASS"
 fi
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
-    CREATE DATABASE IF NOT EXISTS orders;
-    CREATE USER username WITH ENCRYPTED PASSWORD 'password';
-    GRANT ALL PRIVILEGES ON DATABASE orders TO username;
-    GRANT ALL PRIVILEGES ON SCHEMA public TO username;
-    CREATE TABLE IF NOT EXISTS orders (
+    CREATE DATABASE orders;
+    CREATE USER $DB_USER WITH ENCRYPTED PASSWORD '$DB_PASS';
+    GRANT ALL PRIVILEGES ON DATABASE orders TO $DB_USER;
+    GRANT ALL PRIVILEGES ON SCHEMA public TO $DB_USER;
+    CREATE TABLE orders (
         id SERIAL PRIMARY KEY,
         user_id INT,
         number_of_items INT,
         total_amount INT
     );
-    GRANT ALL PRIVILEGES ON TABLE orders TO username;
-    GRANT ALL ON SEQUENCE orders_id_seq TO username;
+    GRANT ALL PRIVILEGES ON TABLE orders TO $DB_USER;
+    GRANT ALL ON SEQUENCE orders_id_seq TO $DB_USER;
 EOSQL
